@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+			crossorigin="anonymous"
+		/>
+		<title>Covid-19 Stats</title>
+	</head>
+	<style>
+		.badge-light {
+			background-color: #ebebfa;
+		}
+
+		#newsPar {
+			opacity: 1;
+			transition: opacity 0.5s;
+		}
+		.hide {
+			opacity: 0 !important;
+		}
+	</style>
+	<body class="container py-2">
+		<header>
+			<nav class="navbar navbar=expand-lg">
+				<a href="#" class="navbar-brand"
+					><h1>
+						COVID-19 <span class="bg-primary text-white p-1">STATS</span>
+					</h1></a
+				>
+				<form class="form-inline my-2">
+					<div class="input-group">
+						<span class="input-group-prepend bg-white">
+							<span class="input-group-text bg-transparent border-right-0">
+								<img src="assets/search.svg" />
+							</span>
+						</span>
+						<input
+							class="form-control border-left-0"
+							placeholder="Search"
+							id="searchIn"
+						/>
+					</div>
+					<div class="col-auto">
+						<img src="assets/bell.svg" />
+					</div>
+				</form>
+			</nav>
+		</header>
+
+		<main class="bg-light p-4">
+			<div class="alert alert-info" role="alert">
+				Any enquiries about Covid-19 should be directed to
+				technicalquery.covid19@gov.in
+			</div>
+
+			<div class="row">
+				<div class="col-5 p-4">
+					<h4 class="text-secondary mb-3">Total Cases</h4>
+					<div class="card bg-primary text-white p-2">
+						<div class="row p-3">
+							<div class="col">
+								<div class="row">
+									<div class="col-9">
+										<h1
+											id="totalCasesTxt"
+											class="mb-3 counter text-nowrap d-inline"
+										></h1>
+									</div>
+									<div class="col-3">
+										<img class="d-inline" src="assets/upGraph.svg" />
+									</div>
+								</div>
+								<p class="card-text lead m-0">Cured/Discharged</p>
+								<p class="card-text lead counter" id="recoveredTxt"></p>
+								<p class="card-text lead m-0">Deaths</p>
+								<p class="card-text lead counter" id="deathsTxt"></p>
+								<p class="card-text lead">Migrated<br />1</p>
+							</div>
+							<div class="col">
+								<img src="assets/doctor-man.svg" width="100%" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-7 p-4">
+					<div class="row">
+						<div class="col-7">
+							<h4 class="text-secondary mb-3">Active Cases</h4>
+						</div>
+						<div class="col-5">
+							<select
+								id="countrySelect"
+								class="custom-select rounded-pill pl-4"
+							>
+								<option value="GB" selected>United Kingdom</option>
+								<option value="US">United States</option>
+								<option value="CN">China</option>
+							</select>
+						</div>
+					</div>
+					<div class="card text-info">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6">
+									<h1 id="activeCasesTxt" class="counter"></h1>
+								</div>
+								<div class="col-6 mt-2">
+									<p class="small">
+										<img src="assets/dot.svg" />New Cases
+										<img src="assets/dot.svg" />Existing Cases
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<canvas id="chart" height="120"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col p-4">
+					<div class="card h-100">
+						<div class="row m-0 h-100">
+							<div class="col-4 p-0">
+								<img src="assets/news.svg" width="100%" height="100%" />
+							</div>
+							<div class="col-8 p-0">
+								<div class="card-body">
+									<div class="card-title">
+										<h5>
+											<span class="badge badge-light text-primary p-2">
+												News & Updates
+											</span>
+										</h5>
+									</div>
+									<div class="card-text mb-5">
+										<p class="lead" id="newsPar"></p>
+									</div>
+									<a
+										id="newsLink"
+										target="_blank"
+										href="#"
+										style="position: absolute; bottom: 3em;"
+										><strong>Read More -></strong></a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col p-4">
+					<div class="card">
+						<div class="row m-0">
+							<div class="col-4 p-0">
+								<img src="assets/donate.svg" width="100%" height="100%" />
+							</div>
+							<div class="col-8 p-0">
+								<div class="card-body">
+									<div class="card-title">
+										<h5>
+											<span class="badge badge-light text-primary p-2">
+												Donate
+											</span>
+										</h5>
+									</div>
+									<div class="card-text mb-4">
+										<p class="lead">
+											Donate to the collective fight against the coronavirus
+											(COVID-19) pandemic.
+										</p>
+										<p style="font-size: 12px;">
+											All contributions are exempt from income Tax under section
+											80(G)>
+										</p>
+									</div>
+									<a
+										href="https://uk.virginmoneygiving.com/donation-web/fundraiser?fundraiserActivityId=1183760&stop_mobi=yes"
+										target="_blank"
+										><strong>Donate Now -></strong></a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		<script src="main.js" type="module"></script>
+	</body>
+</html>
