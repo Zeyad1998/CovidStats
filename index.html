@@ -32,7 +32,7 @@
 						COVID-19 <span class="bg-primary text-white p-1">STATS</span>
 					</h1></a
 				>
-				<form class="form-inline my-2">
+				<form class="form-inline my-2 d-none d-md-flex">
 					<div class="input-group">
 						<span class="input-group-prepend bg-white">
 							<span class="input-group-text bg-transparent border-right-0">
@@ -59,7 +59,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-5 p-4">
+				<div class="col-md-5 p-4">
 					<h4 class="text-secondary mb-3">Total Cases</h4>
 					<div class="card bg-primary text-white p-2">
 						<div class="row p-3">
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-7 p-4">
+				<div class="col-md-7 p-4">
 					<div class="row">
 						<div class="col-7">
 							<h4 class="text-secondary mb-3">Active Cases</h4>
@@ -100,6 +100,30 @@
 								<option value="GB" selected>United Kingdom</option>
 								<option value="US">United States</option>
 								<option value="CN">China</option>
+								<option value="DK">Denmark</option>
+								<option value="CH">Switzerland</option>
+								<option value="CA">Canada</option>
+								<option value="BE">Belgium</option>
+								<option value="SK">Slovakia</option>
+								<option value="PT">Portugal</option>
+								<option value="FI">Finland</option>
+								<option value="IL">Israel</option>
+								<option value="ES">Spain</option>
+								<option value="AR">Argentina</option>
+								<option value="AT">Astria</option>
+								<option value="IT">Italy</option>
+								<option value="TR">Turkey</option>
+								<option value="AU">Australia</option>
+								<option value="IE">Ireland</option>
+								<option value="GR">Greece</option>
+								<option value="KR">South Korea</option>
+								<option value="NL">Netherlands</option>
+								<option value="DE">Germany</option>
+								<option value="JP">Japan</option>
+								<option value="FR">France</option>
+								<option value="NO">Norway</option>
+								<option value="SE">Sweden</option>
+								<option value="PL">Poland</option>
 							</select>
 						</div>
 					</div>
@@ -111,8 +135,7 @@
 								</div>
 								<div class="col-6 mt-2">
 									<p class="small">
-										<img src="assets/dot.svg" />New Cases
-										<img src="assets/dot.svg" />Existing Cases
+										<img src="assets/dot.svg" />Existing/Active Cases
 									</p>
 								</div>
 							</div>
@@ -125,7 +148,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col p-4">
+				<div class="col-md p-4">
 					<div class="card h-100">
 						<div class="row m-0 h-100">
 							<div class="col-4 p-0">
@@ -147,15 +170,27 @@
 										id="newsLink"
 										target="_blank"
 										href="#"
-										style="position: absolute; bottom: 3em;"
+										style="position: absolute; bottom: 5em;"
+										class="card-link"
 										><strong>Read More -></strong></a
 									>
+									<ul id="pagination" class="pagination" style="position: absolute; bottom: 0; left: 5em">
+										<li class="page-item">
+											<a id="leftPgLink" class="page-link border-0"><img src="assets/arrowleft.svg"></a>
+										</li>
+										<li class="page-item">
+											<a id="pgNum" class="page-link border-0 text-primary" style="font-size: 1.25em"></a>
+										</li>
+										<li class="page-item">
+											<a id="rightPgLink" class="page-link border-0"><img src="assets/arrowright.svg"></a>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col p-4">
+				<div class="col-md p-4">
 					<div class="card">
 						<div class="row m-0">
 							<div class="col-4 p-0">
@@ -183,6 +218,7 @@
 									<a
 										href="https://uk.virginmoneygiving.com/donation-web/fundraiser?fundraiserActivityId=1183760&stop_mobi=yes"
 										target="_blank"
+										class="card-link"
 										><strong>Donate Now -></strong></a
 									>
 								</div>
@@ -192,6 +228,10 @@
 				</div>
 			</div>
 		</main>
+		<hr class="mt-n3" />
+		<footer class="text-muted float-right px-5 mb-3">
+			Zeyad Mahagna 2020
+		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 		<script src="main.js" type="module"></script>
 	</body>

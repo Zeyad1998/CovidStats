@@ -14,16 +14,112 @@ month[11] = "December";
 
 const countries = [
 	{
-		code: "GB",
-		slug: "united-kingdom",
+		Slug: "united-kingdom",
+		ISO2: "GB",
 	},
 	{
-		code: "US",
-		slug: "united-states",
+		Slug: "united-states",
+		ISO2: "US",
 	},
 	{
-		code: "CN",
-		slug: "china",
+		Slug: "china",
+		ISO2: "CN",
+	},
+	{
+		Slug: "denmark",
+		ISO2: "DK",
+	},
+	{
+		Slug: "switzerland",
+		ISO2: "CH",
+	},
+	{
+		Slug: "canada",
+		ISO2: "CA",
+	},
+	{
+		Slug: "belgium",
+		ISO2: "BE",
+	},
+	{
+		Slug: "slovakia",
+		ISO2: "SK",
+	},
+	{
+		Slug: "portugal",
+		ISO2: "PT",
+	},
+	{
+		Slug: "finland",
+		ISO2: "FI",
+	},
+	{
+		Slug: "israel",
+		ISO2: "IL",
+	},
+	{
+		Slug: "spain",
+		ISO2: "ES",
+	},
+	{
+		Slug: "argentina",
+		ISO2: "AR",
+	},
+	{
+		Slug: "austria",
+		ISO2: "AT",
+	},
+	{
+		Slug: "italy",
+		ISO2: "IT",
+	},
+	{
+		Slug: "turkey",
+		ISO2: "TR",
+	},
+	{
+		Slug: "australia",
+		ISO2: "AU",
+	},
+	{
+		Slug: "ireland",
+		ISO2: "IE",
+	},
+	{
+		Slug: "greece",
+		ISO2: "GR",
+	},
+	{
+		Slug: "korea-south",
+		ISO2: "KR",
+	},
+	{
+		Slug: "netherlands",
+		ISO2: "NL",
+	},
+	{
+		Slug: "germany",
+		ISO2: "DE",
+	},
+	{
+		Slug: "japan",
+		ISO2: "JP",
+	},
+	{
+		Slug: "france",
+		ISO2: "FR",
+	},
+	{
+		Slug: "norway",
+		ISO2: "NO",
+	},
+	{
+		Slug: "sweden",
+		ISO2: "SE",
+	},
+	{
+		Slug: "poland",
+		ISO2: "PL",
 	},
 ];
 
@@ -36,13 +132,17 @@ const counters = document.querySelectorAll(".counter");
 const newsPar = document.querySelector("#newsPar");
 const newsLink = document.querySelector("#newsLink");
 const countrySelect = document.querySelector("#countrySelect");
+const pagination = document.querySelector("#pagination");
+const leftPgLink = document.querySelector("#leftPgLink");
+const pgNum = document.querySelector("#pgNum");
+const rightPgLink = document.querySelector("#rightPgLink");
 
 let currentCountry = countries[0];
 let int;
 let chart;
 
 function loadApp() {
-	fetch(`https://api.covid19api.com/total/country/${currentCountry.slug}`)
+	fetch(`https://api.covid19api.com/total/country/${currentCountry.Slug}`)
 		.then((res) => res.json())
 		.then((data) => {
 			totalCasesTxt.setAttribute(
@@ -51,7 +151,6 @@ function loadApp() {
 			);
 
 			activeCasesTxt.setAttribute("data-target", data[data.length - 1].Active);
-			console.log(data[data.length - 1]);
 
 			recoveredTxt.setAttribute("data-target", data[data.length - 1].Recovered);
 
@@ -127,11 +226,8 @@ function loadApp() {
 								ticks: {
 									// Abbreviate the millions
 									callback: function (value, index, values) {
-
-										if(value > 1000000)
-											return value / 1e6 + "M";
-										if(value > 1000)
-											return value / 1e3 + "K";
+										if (value > 1000000) return value / 1e6 + "M";
+										if (value > 1000) return value / 1e3 + "K";
 										return value;
 									},
 								},
@@ -143,28 +239,59 @@ function loadApp() {
 		});
 
 	fetch(
-		`https://api.smartable.ai/coronavirus/news/${currentCountry.code}?Subscription-Key=84c6bc03ddaa449596ea0726522936eb`
+		`https://api.smartable.ai/coronavirus/news/${currentCountry.ISO2}?Subscription-Key=84c6bc03ddaa449596ea0726522936eb`
 	)
 		.then((res) => res.json())
 		.then((data) => {
-			let counter = 0;
+			if (data.news === undefined || data.news == 0) {
+				newsPar.innerHTML = `Sorry! No news data found for this country.`;
+				newsLink.href = "#";
+				newsLink.setAttribute("target", "");
+				pagination.style.display = "none";
+			} else {
+				newsPar.innerHTML = data.news[0].title.substring(0, 75);
+				newsLink.href = data.news[0].webUrl;
+				pagination.style.display = "flex";
+				pgNum.innerHTML = `${1}`;
+				leftPgLink.setAttribute("data-target", 29);
+				rightPgLink.setAttribute("data-target", 1);
 
-			newsPar.innerHTML = data.news[counter].title.substring(0, 130);
-			newsLink.href = data.news[counter].webUrl;
+				let c = 1;
+				int = setInterval(changeNews, 7500);
 
-			int = setInterval(function () {
-				newsPar.classList.add("hide");
-				setTimeout(() => {
-					counter++;
-					newsPar.innerHTML = data.news[counter].title.substring(0, 130);
-					newsLink.href = data.news[counter].webUrl;
-					if (data.news[counter].title.length > 131) newsPar.innerHTML += "...";
-					newsPar.classList.remove("hide");
-				}, 500);
-				if (counter >= data.news.length) {
-					counter = 0;
+				leftPgLink.addEventListener("click", () => {
+					clearInterval(int);
+					c = +leftPgLink.getAttribute("data-target");
+					changeNews();
+					int = setInterval(changeNews, 7500);
+				});
+				rightPgLink.addEventListener("click", () => {
+					clearInterval(int);
+					c = +rightPgLink.getAttribute("data-target");
+					changeNews();
+					int = setInterval(changeNews, 7500);
+				});
+
+				function changeNews() {
+					newsPar.classList.add("hide");
+					setTimeout(() => {
+						newsPar.innerHTML = data.news[c].title.substring(0, 75);
+						newsLink.href = data.news[c].webUrl;
+						if (c != 0) leftPgLink.setAttribute("data-target", c - 1);
+						else leftPgLink.setAttribute("data-target", data.news.length - 1);
+						if (c != data.news.length - 1)
+							rightPgLink.setAttribute("data-target", c + 1);
+						else rightPgLink.setAttribute("data-target", 0);
+						pgNum.innerHTML = `${c + 1}`;
+						if (data.news[c].title.length > 76) newsPar.innerHTML += "...";
+						newsPar.classList.remove("hide");
+						c++;
+					}, 500);
+					if (c >= data.news.length) {
+						c = 0;
+					}
 				}
-			}, 7500);
+			}
 		});
 }
 
@@ -172,7 +299,7 @@ loadApp();
 
 countrySelect.addEventListener("change", () => {
 	countries.forEach((country) => {
-		if (country.code == countrySelect.value) currentCountry = country;
+		if (country.ISO2 == countrySelect.value) currentCountry = country;
 	});
 	clearInterval(int);
 	chart.destroy();
